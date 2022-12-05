@@ -13,7 +13,8 @@ description = "An async extension for Diesel the safe, extensible ORM and Query 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-diesel = { version = "2.0.0", default-features = false, features = ["i-implement-a-third-party-backend-and-opt-into-breaking-changes"]}
+#diesel = { version = "2.0.0", default-features = false, features = ["i-implement-a-third-party-backend-and-opt-into-breaking-changes"]}
+diesel = { version = "2.0.2", git = "https://github.com/neogenie/diesel.git", branch = "conditionally_insert_statement", default-features = false, features = ["i-implement-a-third-party-backend-and-opt-into-breaking-changes"]}
 async-trait = "0.1.51"
 futures = "0.3.17"
 tokio-postgres = { version = "0.7.2", optional = true}
@@ -30,7 +31,8 @@ scoped-futures = {version = "0.1", features = ["std"]}
 tokio = {version = "1.12.0", features = ["rt", "macros", "rt-multi-thread"]}
 cfg-if = "1"
 chrono = "0.4"
-diesel = { version = "2.0.0", default-features = false,  features = ["chrono"]}
+diesel = { version = "2.0.2", git = "https://github.com/neogenie/diesel.git", branch = "conditionally_insert_statement", default-features = false, features = ["chrono"]}
+#diesel = { version = "2.0.0", default-features = false,  features = ["chrono"]}
 
 [features]
 default = []
