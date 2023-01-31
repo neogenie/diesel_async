@@ -70,7 +70,7 @@ use diesel::backend::Backend;
 use diesel::query_builder::{AsQuery, QueryFragment, QueryId};
 use diesel::row::Row;
 use diesel::{ConnectionResult, QueryResult};
-use futures::{Future, Stream};
+use futures_util::{Future, Stream};
 
 pub use scoped_futures;
 use scoped_futures::ScopedBoxFuture;
@@ -174,7 +174,7 @@ pub trait AsyncConnection: SimpleAsyncConnection + Sized + Send {
     /// If a nested transaction fails to release the corresponding savepoint
     /// the error will be returned directly.
     ///
-    /// **WARNING:** Cancling the returned future does currently **not**
+    /// **WARNING:** Canceling the returned future does currently **not**
     /// close an already open transaction. You may end up with a connection
     /// containing a dangling transaction.
     ///
@@ -247,7 +247,7 @@ pub trait AsyncConnection: SimpleAsyncConnection + Sized + Send {
         };
         Self::TransactionManager::begin_transaction(self).await?;
         // set the test transaction flag
-        // to pervent that this connection gets droped in connection pools
+        // to prevent that this connection gets dropped in connection pools
         // Tests commonly set the poolsize to 1 and use `begin_test_transaction`
         // to prevent modifications to the schema
         Self::TransactionManager::transaction_manager_status_mut(self).set_test_transaction_flag();
