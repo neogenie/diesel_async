@@ -123,7 +123,7 @@ impl AsyncConnection for AsyncPgConnection {
             .map_err(ErrorHelper)?;
         tokio::spawn(async move {
             if let Err(e) = connection.await {
-                eprintln!("connection error: {}", e);
+                eprintln!("connection error: {e}");
             }
         });
         Self::try_from(client).await
@@ -294,6 +294,11 @@ impl AsyncPgConnection {
             .await
             .map_err(ConnectionError::CouldntSetupConfiguration)?;
         Ok(conn)
+    }
+
+    /// Constructs a cancellation token that can later be used to request cancellation of a query running on the connection associated with this client.
+    pub fn cancel_token(&self) -> tokio_postgres::CancelToken {
+        self.conn.cancel_token()
     }
 
     async fn set_config_options(&mut self) -> QueryResult<()> {
